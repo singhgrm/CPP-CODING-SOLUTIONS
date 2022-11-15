@@ -1,0 +1,30 @@
+//here using queue we can count total number of node in tree
+
+ int countNodes(TreeNode* root) {
+        int  count=0;
+        queue<TreeNode*>q;
+        if(root==NULL)
+        {
+            return 0;
+        }
+        q.push(root);
+        while(!q.empty())
+        {
+            int size=q.size();
+            count+=size;
+            while(size--)
+            {
+                TreeNode* curr=q.front();
+                q.pop();
+                if(curr->left)
+                {
+                    q.push(curr->left);
+                }
+                if(curr->right)
+                {
+                    q.push(curr->right);
+                }
+            }
+        }
+        return count;
+   
