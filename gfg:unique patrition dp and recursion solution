@@ -1,0 +1,38 @@
+//here in the problem we have to find all the unique paths which have sum equal to target..
+//so at each point either we will take that ellement or not take thate element..
+//so explore all the paths and apply bfs..
+//problem link gfg :https://practice.geeksforgeeks.org/problems/unique-partitions1041/1
+
+void dfs(vector<int>&arr,int n,int target,vector<int>&res,vector<vector<int>>&ans)
+{
+   if(n<0)
+   {
+       return;
+   }
+   if(target==0)
+   {
+       ans.push_back(res);
+      // res.pop_back();
+       return;
+   }
+if(arr[n]<=target)
+  {
+      res.push_back(arr[n]);
+dfs(arr,n,target-arr[n],res,ans);  
+res.pop_back();
+  }
+ dfs(arr,n-1,target,res,ans);
+}
+    vector<vector<int>> UniquePartitions(int n) {
+        vector<int>dp(n+1);
+        vector<vector<int>>ans;
+vector<int>arr;
+for(int i=1;i<=n;i++)
+{
+    arr.push_back(i);
+}
+vector<int>res;
+dfs(arr,arr.size()-1,n,res,ans);
+return ans;
+    }
+  //please upvote it
