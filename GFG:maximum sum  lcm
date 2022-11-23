@@ -1,0 +1,27 @@
+//we need to fine all those distinct number which lcm is n ans sum should be maximumm..
+//but id n is pergect quare then let n=100,so 10*10,factor 10 will appear two times but we have to count it only once..
+//we will run a loop only o(sqrt(n)) times..
+
+long long int maxSumLCM(int n) 
+    {
+        long long int sum=0;
+    for(int i=1;i<=sqrt(n);i++)
+    {
+        if(n%i==0)
+        {
+            if(i==n/i)
+            {
+//    when both factor are same then take one like 10*10
+//it will only run when any number is perfect suqre
+sum+=i;
+            }
+else
+{
+//for remaining number like n=100 the (1,10).(2,50),(4,25)..
+sum+=i;
+sum+=n/i;
+}
+        }
+    }
+    return sum;
+    }
