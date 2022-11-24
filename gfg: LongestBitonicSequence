@@ -1,0 +1,41 @@
+#dp problem 
+//tc=o(3n)
+//in given array find longest bitonic sequence..
+//approach is very simple find lcs from left side and right side both ans for each index find dp1[i]+dp2[i]-1 and return maximum..
+
+//code:
+	int LongestBitonicSequence(vector<int>arr)
+	{
+	    int maxi=1;
+	  int n=arr.size();
+vector<int>dp1(n,1);
+vector<int>dp2(n,1);
+//find left side longest incresing...
+for(int i=1;i<n;i++)
+{
+    for(int j=0;j<i;j++)
+    {
+        if(arr[i]>arr[j])
+        {
+            //means next number in greter.
+            dp1[i]=max(dp1[i],dp1[j]+1);
+        }
+    }
+}
+//find right side longest incresing...
+for(int i=n-2;i>=0;i--)
+{
+    for(int j=n-1;j>i;j--)
+    {
+        if(arr[i]>arr[j])
+        {
+            //means next number in greter.
+            dp2[i]=max(dp2[i],dp2[j]+1);
+        }
+    }
+}
+for(int i=0;i<n;i++)
+{
+    maxi=max(maxi,dp1[i]+dp2[i]-1);
+}
+return maxi;
