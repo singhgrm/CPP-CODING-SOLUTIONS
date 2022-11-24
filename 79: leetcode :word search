@@ -1,0 +1,44 @@
+//in this problem we have given a gris and string we need to check that string is present in grid or not..
+
+//expore all trhe path and check string is present or not..
+    bool dfs(vector<vector<char>>&grid,int i,int j,int idx,int n,int m,string s)
+    {
+    if(idx==s.size())
+    {
+//means find find all the character in string..
+        return true;
+    }
+  if(i<0 || j<0 || i>=n || j>=m || grid[i][j]=='*')
+  {
+      return false;
+  }
+    if(grid[i][j]!=s[idx])
+    {
+        return false;
+    }
+        char ch=grid[i][j];
+    grid[i][j]='*';
+ bool t= dfs(grid,i-1,j,idx+1,n,m,s);
+bool l=dfs(grid,i,j-1,idx+1,n,m,s);
+bool d=dfs(grid,i+1,j,idx+1,n,m,s);
+bool r=dfs(grid,i,j+1,idx+1,n,m,s);
+grid[i][j]=ch;
+        return t||l||d||r;
+    }
+    
+    
+bool exist(vector<vector<char>>&grid, string s) {
+   //we need find string s is present in grid..
+int n =grid.size();
+int m=grid[0].size();
+for(int i=0;i<n;i++)
+{
+    for(int j=0;j<m;j++)
+    {
+if(grid[i][j]==s[0] && dfs(grid,i,j,0,n,m,s))
+{
+    return true;
+}
+    }
+}
+        return false;
