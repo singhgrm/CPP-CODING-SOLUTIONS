@@ -1,0 +1,45 @@
+//here we have given an array we need to find mimum in all the subaary and sum it then return the answer..
+//so at each index we will find maximum from left side and store it left side array
+//and also travsere from end and each step store that how much elemnt in maximum in my right popthem and count them..
+//use two stack one for left side and another for right side
+//oberall tc=o(n)
+
+    int sumSubarrayMins(vector<int>& arr) {
+    int n=arr.size();
+    stack<pair<int,int>>st1;
+    stack<pair<int,int>>st2;
+  //for left side..check how much elemnt is greater than cufrent index elemnt
+
+int left[n],right[n];
+int mod=1000000007;
+for(int i=0;i<n;i++)
+{
+    int count=1;
+    while(st1.size()>0 && st1.top().first>arr[i])
+    {
+        count+=st1.top().second;
+        st1.pop();
+    }
+    st1.push({arr[i],count});
+    left[i]=count;
+}
+//
+  //for right side..check how much elemnt is greater than cufrent index elemnt
+    
+for(int i=n-1;i>=0;i--)
+{
+    int count=1;
+    while(st2.size()>0 && st2.top().first>=arr[i])
+    {
+        count+=st2.top().second;
+        st2.pop();
+    }
+    right[i]=count;
+    st2.push({arr[i],count});
+}
+long long int sum=0;
+for(int i=0;i<n;i++)
+{
+    sum=(sum+(long long int)left[i]*right[i]*arr[i])%mod;
+}
+        return sum;
