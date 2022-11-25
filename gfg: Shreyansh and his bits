@@ -1,0 +1,40 @@
+//Shreyansh has an integer N. He is really curious about the binary representation of integers.
+//He sees that any given integer has a number of set bits. Now he wants to find out that how many positive integers, 
+//strictly less than N, have the same number of set bits as N.
+//tc=o(n)
+long long ncr(long long n,long long r,vector<vector<long long int>>&dp)
+ {
+     if(r>n)
+     {
+         //not possible..so return 0;
+         return 0;
+     }
+     if(r==0 || r==n)
+     {
+         return 1;
+     }
+     if(dp[n][r]!=-1)
+     {
+         return dp[n][r];
+     }
+return dp[n][r]= ncr(n-1,r,dp)+ncr(n-1,r-1,dp);
+ }
+ 
+ //main function..
+long long count(long long n) {
+    long long pos=0,one=0,ans=0;
+vector<vector<long long int>>dp(64,vector<long long int>(64,-1));
+    
+while(n>0)
+{
+    if(n&1)
+    {
+        //means last bit is set..trye for next unit boyt
+      one++;
+      ans+=ncr(pos,one,dp);
+    }
+    pos++;
+    n=n>>1;
+}
+return ans;
+ 
