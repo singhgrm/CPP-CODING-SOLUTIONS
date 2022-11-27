@@ -1,0 +1,48 @@
+
+/*You are given the head of a linked list.
+
+Remove every node which has a node with a strictly greater value anywhere to the right side of it.
+
+Return the head of the modified linked list.
+*/
+//tc=o(n)
+//sc=o(n)
+
+
+
+    ListNode* removeNodes(ListNode* head) {
+        vector<int>res;
+        ListNode* curr=head;
+        while(curr!=NULL)
+        {
+            res.push_back(curr->val);
+            curr=curr->next;
+        }
+    int n=res.size();
+        int maxi=res[n-1];
+        vector<int>temp;
+        temp.push_back(maxi);
+    for(int i=n-2;i>=0;i--)
+    {
+        if(res[i]>=maxi)
+        {
+            maxi=res[i];
+            temp.push_back(maxi);
+        }
+    }
+reverse(temp.begin(),temp.end());
+for(int i=0;i<temp.size();i++)
+{
+    cout<<temp[i]<<"  ";
+}
+    ListNode* dummy=new ListNode(-1);
+    ListNode* node=dummy;
+    for(int i=0;i<temp.size();i++)
+    {
+        ListNode* newnode=new ListNode(temp[i]);
+        node->next=newnode;
+        node=node->next;
+    }
+        node->next=NULL;
+        return dummy->next;
+    }
