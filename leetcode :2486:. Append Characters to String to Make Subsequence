@@ -1,0 +1,33 @@
+
+
+/*You are given two strings s and t consisting of only lowercase English letters.
+
+Return the minimum number of characters that need to be appended to the end of s so that t becomes a subsequence of s.
+*/
+//tc=o(n+m)
+//sc=o(1)
+//code
+
+        int i=0,j=0;
+    while(i<n && j<m)
+    {
+        if(s[i]==t[j])
+        {
+            i++;
+            j++;
+        }
+        else
+        {
+            //for next charcatcter math with s and t
+            i++;
+        }
+    }
+        cout<<i<<"  "<<j<<endl;
+        if(j==m)
+        {
+            return 0;
+        }
+        return m-j;
+    }
+
+
