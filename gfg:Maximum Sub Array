@@ -1,0 +1,52 @@
+/*Find out the maximum sub-array of non negative numbers from an array.
+
+The sub-array should be contiguous i.e., a sub-array created by choosing the second and fourth element and skipping the third element is invalid.
+
+Maximum sub-array is defined in terms of the sum of the elements in the sub-array. Sub-array A is greater than sub-array B if sum(A) > sum(B).
+*/
+//tc=o(n)
+//sc=o(1)
+	vector<int> findSubarray(int arr[], int n) {
+	    //apply here kadane algorithm..
+	 
+
+	   int start=0,end=0;
+	   int sum=0,maxi=0;
+	   int len=0;
+	   int ans1=-1,ans2=-1;
+	   for(int i=0;i<n;i++)
+	   {
+	       if(arr[i]<0)
+	       {
+	           sum=0;
+	           start=i+1;
+	           end=i+1;
+	           continue;
+	       }
+	       sum+=arr[i];
+	       if(sum>=maxi)
+	       {
+	           maxi=sum;
+	           end=i;
+	           ans1=start;
+	           ans2=end;
+	          // cout<<sum<<" ";
+	          /* if(len<(end-start+1))
+	           {
+	               len=end-start+1;
+	               
+	           }*/
+	       }
+	   }
+	   vector<int>res;
+	  if(ans1==-1 || ans2==-1)
+	  {
+	      return {-1};
+	  }
+	  for(int i=ans1;i<=ans2;i++)
+	  {
+	      res.push_back(arr[i]);
+	  }
+	  
+	  return res;
+	}
