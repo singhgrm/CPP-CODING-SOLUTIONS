@@ -1,0 +1,46 @@
+/*You are given an integer array matches where matches[i] = [winneri, loseri] indicates that the player winneri defeated player loseri in a match.
+
+Return a list answer of size 2 where:
+
+answer[0] is a list of all players that have not lost any matches.
+answer[1] is a list of all players that have lost exactly one match.
+The values in the two lists should be returned in increasing order.
+
+*/
+//tc=o(n)
+//sc=o(3n) in worst case..
+    vector<vector<int>> findWinners(vector<vector<int>>&arr) {
+       vector<vector<int>>ans;
+        int n=arr.size();
+        int m=arr[0].size();
+    map<int,int>pass;
+    map<int,int>fail;
+    for(int i=0;i<n;i++)
+    {
+        pass[arr[i][0]]++;
+        fail[arr[i][1]]++;
+    }
+        vector<int>v1;
+        vector<int>v2;
+for(auto it:pass)
+{
+//check if pass member is not present in fail it means he is not fail in any game and add that number in answer..
+if(fail.find(it.first)==fail.end())
+{
+    //meand not find
+    v1.push_back(it.first);
+}
+}
+//now check for fail which have frequency 1 it means fail exact;y ones
+for(auto it:fail)
+{
+    if(it.second==1)
+    {
+        //fails exactly one time
+        v2.push_back(it.first);
+    }
+}
+        ans.push_back(v1);
+        ans.push_back(v2);
+        return ans;
+    }
