@@ -1,0 +1,47 @@
+//its problem of linked list..
+/*Given a singly linked list: A0→A1→...→An-2→An-1, reorder it to: A0→An-1→A1→An-2→A2→An-3→...
+For example: Given 1->2->3->4->5 its reorder is 1->5->2->4->3.
+*/
+//tc=o(n)
+//sc=o(n)
+ void reorderList(Node* head) {
+        //a0 an-1
+        //a1  an-2
+    vector<int>res;
+ Node* curr=head;
+ while(curr!=NULL)
+ {
+     res.push_back(curr->data);
+     curr=curr->next;
+ }
+ Node* dummy=new Node(-1);
+ Node* temp=dummy;
+int i=0,j=res.size()-1;
+while(i<j)
+{
+    temp->next=new Node(res[i++]);
+    temp=temp->next;
+    temp->next=new Node(res[j--]);
+    temp=temp->next;
+}
+if(res.size()%2==1)
+{
+    temp->next=new Node(res[j]);
+    temp=temp->next;
+}
+
+//cout<<endl;
+temp->next=NULL;
+dummy=dummy->next;
+//head->next = NULL;
+
+    //traverses the list
+    while (dummy != NULL) {
+       head->data = dummy->data;
+       //*(head->next) = *(dummy->next);
+
+        head = head->next;
+        dummy =dummy->next;
+    }
+    return ;
+
