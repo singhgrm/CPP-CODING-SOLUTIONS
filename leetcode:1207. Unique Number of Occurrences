@@ -1,0 +1,29 @@
+//Given an array of integers arr, return true if the number of occurrences of each value in the array is unique, or false otherwise.
+//tc=o(nlogn)
+//sc=o(n)
+
+
+bool uniqueOccurrences(vector<int>& arr) {
+unordered_map<int,int>mp;
+    int n=arr.size();
+for(int i=0;i<n;i++)
+{
+    mp[arr[i]]++;
+}
+    vector<int>res;
+//now change key to value ..and value to key..
+for(auto it:mp)
+{
+    res.push_back(it.second);
+}
+    sort(res.begin(),res.end());
+    for(int i=1;i<res.size();i++)
+    {
+        if(res[i]==res[i-1])
+        {
+            return false;
+        }
+    }
+    return true;
+    }
+
