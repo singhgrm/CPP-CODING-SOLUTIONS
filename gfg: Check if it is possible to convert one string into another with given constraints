@@ -1,0 +1,54 @@
+//problem 
+/*Given two strings S and T, which contains three characters i.e 'A', 'B' and '#' only. Check whether it is possible to convert the first string into another string by performing following operations on string first.
+1- A can move towards Left only
+2- B can move towards Right only
+3- Neither A nor B should cross each other*/
+
+//tc=o(2n)
+//sc=o(2n) in worst case
+    int isItPossible(string s1, string s2, int m, int n) {
+    vector<pair<char,int>>vp1;
+    vector<pair<char,int>>vp2;
+    if(m!=n)
+    {
+        return 0;
+    }
+for(int i=0;i<m;i++)
+{
+    if(s1[i]!='#')
+    {
+        vp1.push_back({s1[i],i});
+    }
+    if(s2[i]!='#')
+    {
+        vp2.push_back({s2[i],i});
+    }
+}
+if(vp1.size()!=vp2.size())
+{
+    return 0;
+}
+for(int i=0;i<vp1.size();i++)
+{
+    if(vp1[i].first!=vp2[i].first)
+    {
+        //character no matched..
+        return 0;
+    }
+else
+{
+    //when character matched but can not make s1 ans s2
+ if(vp1[i].first=='A' && vp1[i].second<vp2[i].second)  
+ {
+     return 0;
+     //s2 ka character index age h s1 se
+ }
+ else if(vp1[i].first=='B' && vp1[i].second>vp2[i].second)
+ {
+    //s1 me B ka index age h..and s1 me phle h 
+     return 0;
+ }
+}
+}
+return 1;
+}
