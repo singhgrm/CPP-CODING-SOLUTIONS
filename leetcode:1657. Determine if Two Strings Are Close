@@ -1,0 +1,64 @@
+/*Two strings are considered close if you can attain one from the other using the following operations:
+
+Operation 1: Swap any two existing characters.
+For example, abcde -> aecdb
+Operation 2: Transform every occurrence of one existing character into another existing character, and do the same with the other character.
+For example, aacabb -> bbcbaa (all a's turn into b's, and all b's turn into a's)
+You can use the operations on either string as many times as necessary.*/
+//tc=o(nlogn)
+//sc=o(2n)
+ bool closeStrings(string s1, string s2) {
+        if(s1.size()!=s2.size())
+        {
+            return false;
+        }
+    map<char,int>mp1;
+    map<char,int>mp2;
+for(int i=0;i<s1.size();i++)
+{
+    mp1[s1[i]]++;
+}
+for(int i=0;i<s2.size();i++)
+{
+    mp2[s2[i]]++;
+}
+        if(mp1.size()!=mp2.size())
+        {
+            return false;
+        }
+auto it1=mp1.begin() ,it2=mp2.begin();
+        while(it1!=mp1.end())
+        {
+            cout<<it1->first<<"  "<<it2->first<<endl;
+            if(it1->first!=it2->first)
+            {
+                return false;
+            }
+            it1++;
+            it2++;
+        }
+vector<int>res1;
+for(auto it:mp1)
+{
+    res1.push_back(it.second);
+}
+vector<int>res2;
+for(auto it:mp2)
+{
+    res2.push_back(it.second);
+}
+    if(res1.size()!=res2.size())
+        {
+            return false;
+        }
+sort(res1.begin(),res1.end());
+sort(res2.begin(),res2.end());
+for(int i=0;i<res1.size();i++)
+{
+    if(res1[i]!=res2[i])
+    {
+        return false;
+    }
+}
+        return true;
+    }
