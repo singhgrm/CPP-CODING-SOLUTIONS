@@ -1,0 +1,29 @@
+/*
+You are given a positive integer array skill of even length n where skill[i] denotes the skill of the ith player. Divide the players into n / 2 teams of size 2 such that the total skill of each team is equal.
+
+The chemistry of a team is equal to the product of the skills of the players on that team.
+
+*/
+
+//tc=o(nlogn)
+//sc=o(1)
+long long dividePlayers(vector<int>&arr) {
+      long long sum=0;
+        int n=arr.size();
+sort(arr.begin(),arr.end());
+int i=1,j=n-2;
+int check=arr[0]+arr[n-1];
+sum+=(arr[0]*arr[n-1]);
+while(i<j)
+{
+    int num=arr[i]+arr[j];
+    if(num!=check)
+    {
+        return -1;
+    }
+    sum+=(arr[i]*arr[j]);
+    i++;
+    j--;
+}
+        return sum; 
+    }
