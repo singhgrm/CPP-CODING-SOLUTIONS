@@ -1,0 +1,63 @@
+/*Given a string S of lowercase english characters. Rearrange characters of the given string such that the vowels and consonants
+occupy alternate positions and the string so formed should be lexicographically (alphabetically) smallest. */
+
+//tc=o(n)
+//sc=o(4*26)
+
+    string rearrange (string s, int n)
+    {
+        vector<int>hash1(26,0);
+        vector<int>hash2(26,0);
+        int v=0,c=0;
+        for(int i=0;i<n;i++)
+        {
+  if(s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u')
+  {
+      hash1[s[i]-'a']++;
+      v++;
+  }
+  else
+  {
+      c++;
+      hash2[s[i]-'a']++;
+  }
+        }
+        
+if(abs(v-c)>1)
+{
+    return "-1";
+}
+vector<int>maxi(26,0);
+vector<int>mini(26,0);
+if(v>=c)
+{
+    maxi=hash1;
+    mini=hash2;
+}
+else
+{
+    maxi=hash2;
+    mini=hash1;
+}
+s.clear();
+int i=0,j=0;
+while(i<26 && maxi[i]==0) i++;
+while(j<26 && mini[j]==0) j++;
+while(i<26 || j<26)
+{
+    if(i<26)
+    {
+      s+=(i+'a');
+      maxi[i]-=1;
+    }
+    if(j<26)
+    {
+      s+=(j+'a');
+      mini[j]-=1;
+    }
+  
+while(i<26 && maxi[i]==0) i++;
+while(j<26 && mini[j]==0) j++;  
+}
+return s;
+    }
