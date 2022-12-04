@@ -1,0 +1,53 @@
+/*You are given a 0-indexed integer array nums of length n.
+
+The average difference of the index i is the absolute difference between the average of the first i + 1 elements of nums and the average of the last n - i - 1 elements.
+Both averages should be rounded down to the nearest integer.
+
+Return the index with the minimum average difference. If there are multiple such indices, return the smallest one.
+
+*/
+//tc o(2n)
+//sc=o(1)
+
+ long long   int sum=0;
+//its totaly based on prefix sum
+int n=arr.size();    
+for(int i=0;i<n;i++)
+{
+    sum+=arr[i];
+}
+    long long int left=0;
+int i=0,j=n-1;
+long long int mini=INT_MAX;
+int ans=-1;
+while(i<n)
+{
+   left+=arr[i];
+  long long  int right=sum-left;
+ long long   int n1=i+1;
+  long long  int n2=n-i-1;
+//    cout<<n2<<"  ";
+    int avg;
+   // cout<<left/n1<<"  "<<right/n2<<endl;
+    if(n2>=1)
+    {
+     avg=abs((left/n1)-(right)/n2);
+    }
+    else
+    {
+         avg=(left/n1);
+    }
+   // cout<<avg<<"  ";
+    if(mini>avg)
+    {
+        
+        mini=avg;
+      //  cout<<mini<<"  "<<i<<endl;
+        ans=i;
+    }
+    i++;
+    //j--;
+}
+
+    return ans;
+    }
