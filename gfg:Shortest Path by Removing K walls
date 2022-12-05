@@ -1,0 +1,53 @@
+/*Given a 2-D binary matrix of size n*m, where 0 represents an empty space while 1 represents a wall you cannot walk through. You are also given an integer k.
+You can walk up, down, left, or right. Given that you can remove up to k walls, return the minimum number of steps to walk from the top left corner (0, 0) 
+to the bottom right corner (n-1, m-1).*/
+
+//tc=o(n*m*k*4)
+//sc=o(n*m*k)
+
+    int shotestPath(vector<vector<int>> mat, int n, int m, int k) {
+queue<pair<pair<int,int>,int>>q;
+q.push({{0,0},k});
+vector<vector<vector<bool>>>visited(n,vector<vector<bool>>(m,vector<bool>(k+1,false)));
+visited[0][0][k]=true;
+int dist=0;
+int dir[4][2]={{1,0},{-1,0},{0,-1},{0,1}};
+while(!q.empty())
+{
+    int size=q.size();
+    while(size--)
+    {
+        int x=q.front().first.first;
+        int y=q.front().first.second;
+        int curr_k=q.front().second;
+      //  cout<<x<<"  "<<y<<" "<<curr_k<<endl;
+        q.pop();
+if(x==n-1 && y==m-1)
+{
+  // cout<<" ok ";
+    return dist;
+}
+for(int i=0;i<4;i++)
+{
+    int nx=x+dir[i][0];
+    int ny=y+dir[i][1];
+if(nx>=0 && ny>=0 && nx<n && ny<m)
+{
+    if(mat[nx][ny]==0 && visited[nx][ny][curr_k]==false)
+    {
+        visited[nx][ny][curr_k]=true;
+        q.push({{nx,ny},curr_k});
+    }
+    else if(mat[nx][ny]==1 && curr_k>0  && visited[nx][ny][curr_k-1]==false)
+    {
+        visited[nx][ny][curr_k-1]=true;
+        q.push({{nx,ny},curr_k-1});
+    }
+}
+}
+    }
+  //  cout<<dist<<" ";
+    dist++;
+}
+return -1;
+    }
