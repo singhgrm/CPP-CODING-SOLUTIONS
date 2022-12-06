@@ -1,0 +1,39 @@
+/*Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+*/
+//tc=o(n)
+//sc=o(1)
+
+
+ ListNode* oddEvenList(ListNode* head) {
+       
+        ListNode* curr=head;
+     ListNode* even=new ListNode(-1);
+     ListNode* e=even;  
+      ListNode* odd=new ListNode(-1);
+     ListNode* o=odd;
+while(curr!=NULL)
+{
+    o->next=curr;
+    o=o->next;
+    curr=curr->next;
+    if(curr==NULL)
+    {
+        break;
+    }
+  
+        e->next=curr;
+        e=e->next;
+    
+    curr=curr->next;
+    
+}
+e->next=NULL;
+o->next=even->next;
+
+return odd->next;
+    }
