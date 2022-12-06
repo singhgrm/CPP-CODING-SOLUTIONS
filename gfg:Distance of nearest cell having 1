@@ -1,0 +1,48 @@
+/*Given a binary grid of n*m. Find the distance of the nearest 1 in the grid for each cell.
+The distance is calculated as |i1  - i2| + |j1 - j2|, where i1, j1 are the row number and column number of the current cell, and i2, j2 are the
+row number and column number of the nearest cell having value 1.*/
+//tc=o(n*m*4)
+//sc=o(2*m*n)
+
+vector<vector<int>>nearest(vector<vector<int>>grid)
+	{
+	   int n=grid.size();
+	   int m=grid[0].size();
+	  vector<vector<int>>ans(n,vector<int>(m,0));
+	  vector<vector<bool>>visited(n,vector<bool>(m,false));
+	queue<pair<pair<int,int>,int>>q;
+	
+	 for(int i=0;i<n;i++)
+	 {
+	   for(int j=0;j<m;j++)
+	   {
+	       if(grid[i][j]==1)
+	       {
+	           visited[i][j]=true;
+	           //here 0 is ditance of cell 1
+	           //for 1 distance will be 
+	         q.push({{i,j},0});  
+	       }
+	   }
+	 }
+int dir[4][2]={{-1,0},{1,0},{0,1},{0,-1}};
+	while(!q.empty())
+	{
+	    int i=q.front().first.first;
+	    int j=q.front().first.second;
+	    int curr_dis=q.front().second;
+	    ans[i][j]=curr_dis;
+	    q.pop();
+	 for(int k=0;k<4;k++)
+	 {
+	     int x=i+dir[k][0];
+	     int y=j+dir[k][1];
+if(x>=0 && y>=0 &&  x<n && y<m && visited[x][y]==false)
+{
+    visited[x][y]=true;
+    q.push({{x,y},curr_dis+1});
+}
+	 }
+	}
+	return ans;
+	}
