@@ -1,0 +1,41 @@
+    vector<int> threeDivisors(vector<long long> query, int q)
+    {
+        // Write your code here
+                const int N=1e6;
+
+        vector<int> primes(N+1,1);
+
+        primes[0]=primes[1]=0;
+
+        for(int i=2;i*i<=N;i++){
+
+            if(primes[i]){
+
+                for(int j=i*i;j<=N;j+=i){
+
+                    primes[j]=0;
+
+                }
+
+            }
+
+        }
+
+        vector<int> prefix(N+1,0);
+
+        for(int i=2;i<=N;i++) prefix[i]=prefix[i-1]+primes[i];
+
+        vector<int> ans;
+
+        for(int i=0;i<q;i++){
+
+            int x=sqrt(query[i]);
+
+            ans.push_back(prefix[x]);
+
+        }
+
+        return ans;
+
+
+    }
