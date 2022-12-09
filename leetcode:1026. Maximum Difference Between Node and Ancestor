@@ -1,0 +1,39 @@
+/*Given the root of a binary tree, find the maximum value v for which there exist different nodes a and b where v = |a.val - b.val| and a is an ancestor of b.
+
+A node a is an ancestor of b if either: any child of a is equal to b or any child of a is an ancestor of b.
+*/
+
+    int maxi=0;
+    pair<int,int> ok(TreeNode* root)
+    {
+        if(root==NULL)
+        {
+            return {0,0};
+        }
+    auto l=(root->left==NULL?make_pair(0,0):ok(root->left));
+    auto r=(root->right==NULL?make_pair(0,0):ok(root->right));
+
+    if(root->left==NULL && root->right==NULL)
+    {
+        return {root->val,root->val};
+    }
+    int cur_maxi=root->val;
+    int cur_mini=root->val;
+if(root->left!=NULL)
+{
+    maxi=max({maxi,abs(root->val-l.first),abs(root->val-l.second)});
+    cur_maxi=max(cur_maxi,l.second);
+    cur_mini=min(cur_mini,l.first);
+}if(root->right!=NULL)
+{
+    maxi=max({maxi,abs(root->val-r.first),abs(root->val-r.second)});
+    cur_maxi=max(cur_maxi,r.second);
+    cur_mini=min(cur_mini,r.first);
+}
+        return {cur_mini,cur_maxi};
+    }    
+    int maxAncestorDiff(TreeNode* root) {
+        ok(root);
+        return maxi;
+    }
+
