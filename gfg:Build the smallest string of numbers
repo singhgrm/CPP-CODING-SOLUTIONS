@@ -1,0 +1,76 @@
+/*
+Given a number k and string num of digits (0 to 9) denoting a positive integer. Find a string denoting the lowest integer number possible by removing k digits from num, without changing their order.
+Note: num will not contain any leading zero.
+
+ 
+
+Example 1:
+
+Input:
+k = 2
+num = "143729"
+Output: "1329"
+Explanation: 1329 is the minimum number
+possible after removing '4' and '7'.
+*/
+//tc=o(n)
+//sc=o(n)
+int n=s.size();
+stack<int>st;
+string str="";
+st.push(s[0]-'0');
+str+=s[0];
+for(int i=1;i<n;i++)
+{
+    if(st.size() >0 && st.top()>(s[i]-'0') && k>=1)
+    {
+       
+        //means number will largers
+       while(st.size() >0 && st.top()>(s[i]-'0') && k>=1)
+       {
+        st.pop();
+        k-=1;
+        
+        str.pop_back();
+        
+       }
+       st.push(s[i]-'0');
+       str+=s[i];
+    }
+    else
+    {
+        //top is smaller
+        //simply push it amd add it to the naswer
+        st.push(s[i]-'0');
+        str+=s[i];
+    }
+}
+//cout<<str<<endl;
+while(k>=1 && st.size()>0)
+{
+    st.pop();
+    k--;
+    str.pop_back();
+}
+int i=0;
+for(i=0;i<str.size();i++)
+{
+    if(str[i]=='0')
+    {
+        continue;
+    }
+    else
+    {
+        break;
+    }
+}
+if(i==str.size())
+{
+    return "0";
+}
+if(i>0)
+{
+    return str.substr(i);
+}
+return str;
+}
