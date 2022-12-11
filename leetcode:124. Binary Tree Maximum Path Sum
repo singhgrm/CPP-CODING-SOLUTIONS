@@ -1,0 +1,26 @@
+/*A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. 
+A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+
+The path sum of a path is the sum of the node's values in the path.*/
+//tc=o(n)
+//sc=o(1)
+  int maxi=INT_MIN;
+int max_path_sum(TreeNode* root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+//if left sidde or roight sode value is less than 0 than cosider that side as 0
+  int left=max(0,max_path_sum(root->left));
+int right=max(0,max_path_sum(root->right));
+maxi=max({maxi,root->val+left+right});
+return root->val+max(left,right);  
+}
+
+    
+int maxPathSum(TreeNode* root) {
+     max_path_sum(root);
+    return maxi;
+    }
+
