@@ -1,0 +1,58 @@
+/*Given an array of integers and a number k, write a function that returns true if given array can be divided into pairs such that sum of every pair is divisible by k.
+ 
+
+Example 1 :
+
+Input : arr = [9, 5, 7, 3], k = 6
+Output: True
+Explanation: {(9, 3), (5, 7)} is a 
+*/
+//tc=o(n)
+//sc=o(1)
+
+ bool canPair(vector<int>arr, int k) {
+        unordered_map<int,int>mp;
+        int count=0;
+        int n=arr.size();
+        if(n%2==1)
+        {
+            return false;
+        }
+        if(k==1)
+        {
+            return true;
+        }
+    for(int i=0;i<arr.size();i++)
+    {
+        int num=arr[i]%k;
+        if(num==0)
+        {
+            count++;
+            continue;
+        }
+        if(mp.find(k-num)!=mp.end())
+        {
+          //  cout<<arr[i]<<"  "<<k-num<<endl;
+            //means elemnt is present 
+           // count++;
+            if(mp[k-num]==1)
+            {
+                mp.erase(k-num);
+            }
+            else
+            {
+                mp[k-num]--;
+            }
+        }
+    
+        else
+        {
+        mp[num]++;
+        }
+    }
+    if(count%2==0 && mp.size()==0)
+    {
+        return true;
+    }
+        return false;
+    }
