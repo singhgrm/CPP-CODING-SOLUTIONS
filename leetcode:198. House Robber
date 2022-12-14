@@ -1,0 +1,62 @@
+/*You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from 
+robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into 
+on the same night.
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.*/
+//tc=o(n)
+//sc=o(n)
+
+int dfs(vector<int>&arr,int n,vector<int>&dp)
+{
+    if(n<0)
+    {
+        return 0;
+    }
+    if(n==0)
+    {
+        return arr[0];
+    }
+    if(dp[n]!=-1)
+    {
+        return dp[n];
+    }
+    //
+  //  int take=-1;
+
+int take=arr[n]+dfs(arr,n-2,dp);
+
+ int   non_take=dfs(arr,n-1,dp);
+    return dp[n]= max(take,non_take);
+}
+int  rob(vector<int>&arr)
+{
+int maxi=0;
+vector<int>dp(arr.size()+1,0); 
+    int n=arr.size();
+    if(n==1)
+    {
+        return arr[0];
+    }
+dp[0]=arr[0];
+dp[1]=arr[1];
+int non_take=arr[0];
+int take=arr[1];
+
+for(int i=1;i<n;i++)
+  {
+     non_take=dp[i-1];
+    if(i>=2)
+    {
+    take=arr[i]+dp[i-2];
+    }
+    dp[i]=max(take,non_take);
+  }
+return dp[n-1];       
+}
+
