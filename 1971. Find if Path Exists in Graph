@@ -1,0 +1,70 @@
+/*There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive). The edges in the graph are represented as a 2D integer
+array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. Every vertex pair is connected by at most one edge, 
+and no vertex has an edge to itself.
+You want to determine if there is a valid path that exists from vertex source to vertex destination.
+Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise.
+Input: n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2
+Output: true*/
+//tc=o(n)
+//sc=o(n)//for visited
+
+
+bool dfs(vector<int>adj[],int src,int dest,vector<bool>&visited)
+{
+    visited[src]=true;
+    if(src==dest)
+    {
+        return true;
+    }
+    for(auto nbr:adj[src])
+    {
+    
+        if(visited[nbr]==false)
+        {
+      
+            if(dfs(adj,nbr,dest,visited))
+            {
+                return true;
+            }
+        }
+     else   if(nbr==dest)
+       {
+        return true;
+       }
+    }
+    return false;
+}
+//now apply here bfs
+bool bfs(vector<int>adj[],int src,int dest,vector<bool>&visited)
+{
+    queue<int>q;
+    q.push(src);
+    while(!q.empty())
+    {
+        int node=q.front();
+        q.pop();
+        if(node==dest)
+        {
+            return true;
+        }
+        visited[node]=true;
+        for(auto nbr:adj[node])
+        {
+            if(visited[nbr]==false)
+            {
+                q.push(nbr);
+            }
+        }
+    }
+    return false;
+}
+    bool validPath(int n, vector<vector<int>>& g, int src, int dest) {
+        vector<int>adj[n];
+    for(int i=0;i<g.size();i++)
+    {
+        adj[g[i][0]].push_back(g[i][1]);
+        adj[g[i][1]].push_back(g[i][0]);
+    }
+        vector<bool>visited(n,false);
+    return bfs(adj,src,dest,visited);
+    }
