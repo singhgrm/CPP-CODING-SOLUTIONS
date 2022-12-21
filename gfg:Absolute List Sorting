@@ -1,0 +1,41 @@
+/*Given a linked list of N nodes, sorted in ascending order based on the absolute values of its data,i.e.
+negative values are considered as positive ones. Sort the linked list in ascending order according to the actual values, and consider negative numbers 
+as negative and positive numbers as positive.
+Example 1:
+
+Input: 
+List: 1, -2, -3, 4, -5
+Output: 
+List: -5, -3, -2, 1, 4
+Explanation: 
+Actual sorted order of {1, -2, -3, 4, -5}
+is {-5, -3, -2, 1, 4}
+*/
+//tc=o(nlogn)
+//sc=o(n)
+
+ Node* sortList(Node* head)
+    {
+        vector<int>res;
+        Node* curr=head;
+        while(curr!=NULL)
+        {
+            res.push_back(curr->data);
+            curr=curr->next;
+            
+        }
+    sort(res.begin(),res.end());
+        Node* dummy=new Node();
+        dummy->data=-1;
+        Node* temp=dummy;
+for(int i=0;i<res.size();i++)
+{
+    Node* newnode=new Node();
+    newnode->data=res[i];
+    newnode->next=NULL;
+    temp->next=newnode;
+    temp=temp->next;
+}
+temp->next;
+return dummy->next;
+    }
