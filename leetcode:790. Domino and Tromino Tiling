@@ -1,0 +1,21 @@
+/*You have two types of tiles: a 2 x 1 domino shape and a tromino shape. You may rotate these shapes.
+
+*/
+ int numTilings(int n) {
+              if (n < 3) return n;
+        //given in the question that answer may be long
+        int modulo = pow(10, 9) + 7;  
+        
+        vector<long> DP(n+1, 0), TP(n+1, 0);
+        //base case-2
+        DP[0] = 0,DP[1] = 1, DP[2] = 2;
+        TP[0] = 0, TP[1] = 1, TP[2] = 2;
+        
+        for (int i = 3; i <= n; i++) {
+            DP[i] = (DP[i-1] + DP[i-2] + 2*TP[i-2]) % modulo;
+            TP[i] = (TP[i-1] + DP[i-1]) % modulo;
+        }
+        
+        return DP[n];
+  
+    }
