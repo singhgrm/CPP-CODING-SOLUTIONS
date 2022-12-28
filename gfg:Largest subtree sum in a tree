@@ -1,0 +1,57 @@
+/*Given a binary tree. The task is to find subtree with maximum sum in the tree and return its sum.
+
+Example 1:
+
+Input:
+              1
+            /   \
+           2      3
+          / \    / \
+         4   5  6   7
+Output: 28
+Explanation: 
+As all the tree elements are positive,
+the largest subtree sum is equal to
+sum of all tree elements.
+
+Example 2:
+Input:
+               1
+            /    \
+          -2      3
+          / \    /  \
+         4   5  -6   2
+Output: 7
+Explanation: 
+Subtree with largest sum is : 
+  -2
+ /  \ 
+4    5
+Also, entire tree sum is also 7.
+
+*/
+
+//code tc=o(n)
+//sc=o(1)
+
+int maxi=INT_MIN;
+int find_maxi(Node* root)
+    {
+        if(root==NULL)
+        {
+            return 0;
+        }
+    int lt=find_maxi(root->left);
+    int rt=find_maxi(root->right);
+    
+    int val=root->data+lt+rt;
+    maxi=max({maxi,val});
+    return val;
+    }
+    // Function to find largest subtree sum.
+    int findLargestSubtreeSum(Node* root)
+    {
+        find_maxi(root);
+        return maxi;
+    }
+
