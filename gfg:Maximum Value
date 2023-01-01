@@ -1,0 +1,57 @@
+/*Given a binary tree, find the largest value in each level.
+
+
+Example 1:
+
+Input:
+        1
+       / \
+      2   3 
+Output:
+1 3
+Explanation:
+At 0 level, values of nodes are {1}
+                 Maximum value is 1
+At 1 level, values of nodes are {2,3}
+                Maximum value is 3
+Example 2:
+
+Input:
+        4
+       / \
+      9   2
+     / \   \
+    3   5   7 
+Output:
+4 9 7
+*/
+//tc=o(n)
+//sc=o(heinghoftree)
+
+vector<int> maximumValue(Node* root) {
+        //apply here queue..
+    queue<Node*>q;
+    vector<int>res;
+    q.push(root);
+while(!q.empty())
+{
+    int maxi=0;
+    int size=q.size();
+    while(size--)
+    {
+        Node* curr=q.front();
+        q.pop();
+        maxi=max(maxi,curr->data);
+        if(curr->left)
+        {
+            q.push(curr->left);
+        }
+        if(curr->right)
+        {
+            q.push(curr->right);
+        }
+    }
+    res.push_back(maxi);
+}
+return res;
+    }
