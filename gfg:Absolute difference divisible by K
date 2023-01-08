@@ -1,0 +1,30 @@
+/*Given an array of integers of size n and an integer k, find all the pairs in the array whose absolute difference is divisible by k.
+
+Example 1:
+
+Input:
+n = 3
+arr[] = {3, 7, 11}
+k = 4
+Output:
+3
+Explanation:
+(11-3) = 8 is divisible by 4
+(11-7) = 4 is divisible by 4
+(7-3) = 4 is divisible by 4
+*/
+//tc=o(n)
+//sc=o(n)
+
+ long long countPairs(int n, int arr[], int k) {
+        // code here
+        unordered_map<int,int>mp;
+    long long count=0;
+for(int i=0;i<n;i++)
+{
+    count+=mp[arr[i]%k];
+    mp[arr[i]%k]++;
+}
+    
+        return count;
+    }
