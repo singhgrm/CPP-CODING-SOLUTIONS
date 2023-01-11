@@ -1,0 +1,45 @@
+/*You are given N elements, you can remove any two elements from the list, note their sum, and add the sum to the list. Repeat these steps while
+there is more than a single element in the list. The task is to minimize the sum of these chosen sums.
+Example 1:
+
+Input:
+N = 4
+arr[] = {1, 4, 7, 10}
+
+Output:
+39
+
+Explanation:
+Choose 1 and 4, Sum = 1 + 4 = 5.
+arr[] = {5, 7, 10} 
+Choose 5 and 7, Sum = 5 + (5 + 7) = 17.
+arr[] = {12, 10} 
+Choose 12 and 10, Sum = 17 + (12 + 10) = 39.
+arr[] = {22}
+*/
+//tc=o(nlogn)
+
+
+int minimizeSum(int n, vector<int> arr) {
+//logic is very simple create min heap priory queue..
+//take two ekement add them and ahain insert in into queue
+//each time when we add the elemnt add it into the enaswer
+
+priority_queue<int,vector<int>,greater<int>>pq;
+for(int i=0;i<n;i++)
+{
+    pq.push(arr[i]);
+}
+int sum=0;
+while(pq.size()>1)
+{
+    int val1=pq.top();
+    pq.pop();
+    int val2=pq.top();
+    pq.pop();
+    sum+=(val1+val2);
+    pq.push(val1+val2);
+    
+}
+return sum;
+    }
