@@ -1,0 +1,49 @@
+/*Given a singly linked list of N nodes. Find the first node of the loop if the linked list has a loop. 
+If a loop is present return the node data of
+the first node of the loop else return -1.
+
+Output: -1
+*/
+//tc=o(n)
+//sc=o(n)
+int findFirstNode(Node* root)
+    {
+      /*  unordered_set<Node*>st;
+        Node* curr=root;
+        while(curr!=NULL)
+        {
+            if(st.find(curr)!=st.end())
+            {
+                return curr->data;
+            }
+            st.insert(curr);
+            curr=curr->next;
+        }*/
+        
+//method 2 slow fast techniques..
+Node* slow=root;
+Node* fast=root;
+bool flag=false;
+while(fast->next && fast->next->next)
+{
+    slow=slow->next;
+    fast=fast->next->next;
+    if(slow==fast)
+    {
+        flag=true;
+        break;
+    }
+}
+if(flag==false)
+   {
+       //means loop is not present in linked list
+   return -1;
+   }
+fast=root;
+while(fast!=slow)
+{
+    fast=fast->next;
+    slow=slow->next;
+}
+return slow->data;
+    }
