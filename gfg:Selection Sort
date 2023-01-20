@@ -1,0 +1,45 @@
+/*Given an unsorted array of size N, use selection sort to sort arr[] in increasing order.
+
+
+Example 1:
+
+Input:
+N = 5
+arr[] = {4, 1, 3, 9, 7}
+Output:
+1 3 4 7 9
+Explanation:
+Maintain sorted (in bold) and unsorted subarrays.
+Select 1. Array becomes 1 4 3 9 7.
+Select 3. Array becomes 1 3 4 9 7.
+Select 4. Array becomes 1 3 4 9 7.
+Select 7. Array becomes 1 3 4 7 9.
+Select 9. Array becomes 1 3 4 7 9.
+*/
+
+//tc=o(n2)
+
+ void selectionSort(int arr[], int n)
+    {
+      //selection sort
+//isme jis index prr h age ke valuye to check krenge agr age li value
+//choti hogi to break kr denge and swap kr denge
+for(int i=0;i<n;i++)
+{
+    int mini=i;
+for(int j=i+1;j<n;j++)
+    {
+//if next element is small then store it to mini again 
+//check for the next smaller..
+if(arr[mini]>arr[j])
+{
+    //meanse age ka ellent chota h to uodate mini
+    mini=j;
+}
+
+    }
+//so at the end mini have contain smallest elemmt of right side
+swap(arr[mini],arr[i]);
+}
+return;
+    }
