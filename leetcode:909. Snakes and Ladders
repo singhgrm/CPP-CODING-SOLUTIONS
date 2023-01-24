@@ -1,0 +1,77 @@
+//tc=o(2^n)
+void find_index_pos(int x,int n,vector<int>&index)
+{
+  /*  int row=n-(x-1)/n-1;
+    int col=(x-1)%n;
+    if ((n-1-row) % 2 != 0)*/
+     					int row = (n-1)-(x - 1) / n;
+					int col = (x- 1) % n;
+
+					// now according to the board we have to flip the row
+					// whenever we encounter odd row number
+					if ((n-1-row) % 2 != 0) {
+						col = n - 1 - col;
+					}
+   
+        
+    index[0]=row;
+    index[1]=col;
+        
+}
+    
+    
+int snakesAndLadders(vector<vector<int>>&grid) {
+     //apply bfs..
+        int n=grid.size();
+    int m=grid[0].size();
+    queue<int>q;
+  //for first index vallue 1 ans wil be zero start from 1 and reach to the n*n
+    q.push(1);
+vector<vector<bool>>visited(n,vector<bool>(n,false));
+    visited[n-1][0]=true;
+    int count=0;
+while(!q.empty())
+{
+    int size=q.size();
+for(int i=0;i<size;i++)
+{
+    int x=q.front();
+    q.pop();
+//check kya destination prr phuch gye
+    if(x==n*n)
+    {
+        return count;
+    }
+//now from position x we can go furhet x+1 to x+6
+for(int step=1;step<=6;step++)
+{
+    if((step+x)>n*n)
+    {
+        break;
+    }
+    vector<int>index(2,0);
+    find_index_pos(step+x,n,index);
+    int r=index[0];
+    int c=index[1];
+    //cout<<r<<" "<<c<<endl;
+if(visited[r][c]==true)
+{
+    continue;
+}
+    visited[r][c]=true;
+  if(grid[r][c]==-1)
+  {
+      q.push(step+x);
+  }
+    else
+    {
+        cout<<grid[r][c]<<" ";
+        q.push(grid[r][c]);
+    }
+}
+}
+    count++;
+}
+    
+        return -1;
+    }
