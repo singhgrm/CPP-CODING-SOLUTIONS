@@ -1,0 +1,51 @@
+/*Given a string S consisting of only uppercase and lowercase characters. The task is to sort uppercase 
+and lowercase letters separately such that if the ith place in the original string had an Uppercase character then it
+should not have a lowercase character after being sorted and vice versa.
+
+Example 1:
+
+Input:
+N = 12
+S = defRTSersUXI
+Output: deeIRSfrsTUX
+Explanation: Sorted form of given string
+with the same case of character as that
+in original string is deeIRSfrsTUX
+*/
+//tc=o(nlogn)
+//sc=o(2n)
+
+  string caseSort(string s, int n)
+    {
+        // your code here
+        string s1="";
+        string s2="";
+    for(int i=0;i<n;i++)
+    {
+        if(s[i]>=97 && s[i]<=122)
+        {
+            s1+=s[i];
+        }
+        else
+        {
+            s2+=s[i];
+        }
+    }
+//s1 for samll s2 for capital
+sort(s1.begin(),s1.end());
+sort(s2.begin(),s2.end());
+string ans="";
+int i=0,j=0;
+for(int k=0;k<n;k++)
+{
+    if(s[k]>=97 && s[k]<=122)
+    {
+        ans+=s1[i++];
+    }
+    else
+    {
+        ans+=s2[j++];
+    }
+}
+return ans;
+    }
