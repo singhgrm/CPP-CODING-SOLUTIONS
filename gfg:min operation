@@ -1,0 +1,31 @@
+/*Given two numbers a and b. In one operation you can pick any non negative integer x and either of a or b.
+Now if you picked a then replace a with a&x else if you picked b then replace b with b&x.
+
+Return the minimum number of operation required to make a and b equal.
+
+Note: Here & represents bitwise AND operation.
+
+Example 1:
+
+Input:
+a = 5, b = 12
+Output:
+2
+Explanantion:
+In first operation replace 
+a = a&4 = 4
+after that replace 
+b = b&6 = 4*/
+int solve(int a, int b) {
+if(a==b)
+{
+    return 0;
+}
+int val=a&b;
+if(val!=a && val!=b)
+{
+    return 2;
+}
+return 1;
+    }
+
