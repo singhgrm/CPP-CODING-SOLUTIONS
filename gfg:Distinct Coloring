@@ -1,0 +1,40 @@
+/*There is a row of N houses, each house can be painted with one of the three colors: red, blue or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color. Find the minimum cost to paint all houses.
+
+The cost of painting each house in red, blue or green colour is given in the array r[], g[] and b[] respectively.
+
+
+Example 1:
+
+Input:
+N = 3
+r[] = {1, 1, 1}
+g[] = {2, 2, 2}
+b[] = {3, 3, 3}
+Output: 4
+Explanation: We can color the houses 
+in RGR manner to incur minimum cost.
+We could have obtained a cost of 3 if 
+we coloured all houses red, but we 
+cannot color adjacent houses with 
+the same color.
+
+*/
+ long long int distinctColoring(int n, int r[], int g[], int b[]){
+ vector<vector<long long int>>arr(3,vector<long long int>(n));
+ //row size is fix only 3 for r g b
+ arr[0][0]=r[0];
+ arr[1][0]=g[0];
+ arr[2][0]=b[0];
+//now go to each colum and co,or with r||g||b with mib cost
+for(int i=1;i<n;i++)
+{
+    arr[0][i]+=r[i]+min(arr[1][i-1],arr[2][i-1]);
+
+    arr[1][i]+=g[i]+min(arr[0][i-1],arr[2][i-1]);
+    arr[2][i]+=b[i]+min(arr[1][i-1],arr[0][i-1]);
+}
+
+int mini=INT_MAX;
+//ans is in last column
+return min({arr[0][n-1],arr[1][n-1],arr[2][n-1]});
+    }
