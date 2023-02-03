@@ -1,0 +1,35 @@
+/*Given a binary matrix of dimensions  with R rows and C columns. Start from cell(0, 0), moving in the right direction. Perform the following operations: 
+
+If the value of matrix[i][j] is 0, then traverse in the same direction and check the next value.
+If the value of matrix[i][j] is 1, then update matrix[i][j] to 0 and change the current direction clockwise. ie - up, right, down, or left directions change to right, down, left, and up respectively.
+Find the index of the cell where you will be forced to exit the matrix while performing the given traversal. 
+
+Example 1:
+
+Input:
+matrix[][] = {{0,1},
+              {1,0}}
+R=2
+C=2
+
+Output: (1,1)
+*/
+
+    pair<int,int> endPoints(vector<vector<int>> mat, int r, int c){
+        //code here
+vector<pair<int, int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int n = mat.size(), m = mat[0].size();
+        int i=0, j=0, k=0;
+        pair<int, int> ans;
+        while(i>=0 && j>=0 && i< n && j<m){
+            ans = {i, j};
+            if(mat[i][j]==1){
+                mat[i][j]=0;
+                k = (k+1)%4; 
+            }
+            i = i+dir[k].first;
+            j = j+dir[k].second;
+        }
+        return ans;
+   
+    }
