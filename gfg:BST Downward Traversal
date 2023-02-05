@@ -1,0 +1,76 @@
+/*Given a Binary Search Tree and a target value. You have to find the node whose data is equal to target and return the sum of all descendant node's data
+which are vertically below the target node. Initially you are at the root node.
+Note: If target node is not present in bst then return -1.
+
+Example 1:
+
+Input:
+
+
+Target = 35
+Output: 32
+Explanation: Vertically below 35 is 32.
+//tc=o(n)
+//sc=o(1)
+
+Node* res=NULL;
+void dfs(Node* root,int target)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    if(root->data==target)
+    {
+        res=root;
+        return;
+    }
+    if(root->data<target)
+    {
+        //right me search kro
+     dfs(root->right,target);   
+    }
+    else
+    {
+        dfs(root->left,target);
+    }
+    return;
+}
+
+    long long int verticallyDownBST(Node *root,int target){
+        dfs(root,target);
+        if(res==NULL)
+        {
+            return -1;
+        }
+        queue<pair<Node*,int>>q;
+        q.push({res,0});
+       // cout<<res->data<<endl;
+        long long sum=0;
+        
+        while(!q.empty())
+        {
+            int size=q.size();
+            while(size--)
+            {
+                Node* curr=q.front().first;
+                int idx=q.front().second;
+                q.pop();
+                if(idx==0)
+                {
+                   // cout<<curr->data<<endl;
+                    
+                    sum+=curr->data;
+                }
+                if(curr->left)
+                {
+                    q.push({curr->left,idx-1});
+                }
+            if(curr->right)
+                {
+                    q.push({curr->right,idx+1});
+                }
+            }
+        }
+        return sum-res->data;
+    }
