@@ -1,0 +1,49 @@
+/*Geek is in a geekland which have a river and some stones in it. Initially geek can step on any stone. Each stone has a number on it representing the value of 
+exact step geek can move. If the number is +ve then geeks can move right and if the number is -ve then geeks can move left. Bad Stones are defined as the stones
+in which if geeks steps, will reach a never ending loop whereas good stones are the stones which are safe from never ending loops. Return the number of good stones 
+in river.
+Example 1:
+Input: [2, 3, -1, 2, -2, 4, 1]
+Output: 3
+Explanation: Index 3, 5 and 6 are safe only. As index 1, 4, 2 forms a cycle and from index 0 you can go to index 2 which is part of cycle.
+*/
+bool dfs(vector<int>&arr,int src,vector<int>&dp)
+{
+    if(src<0 || src>=arr.size() || dp[src]==2)
+    {
+        return true;
+    }
+if(dp[src]==1)
+{
+    return false;
+}
+dp[src]=1;
+  bool res=dfs(arr,src+arr[src],dp);
+  if(res)
+  {
+      dp[src]=2;
+  }
+  return res;
+}
+
+
+int goodStones(int n,vector<int> &arr){
+    
+ //  cout<<n<<endl; 
+    int count=0;
+vector<int>dp(n,0);
+for(int i=0;i<n;i++)
+{
+    if(dp[i]==0)
+    {
+        dfs(arr,i,dp);
+    }
+    if(dp[i]==2)
+    {
+       // cout<<i<<" ";
+        count++;
+    }
+}
+//cout<<endl;
+return count;
+    }  
