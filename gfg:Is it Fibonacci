@@ -1,0 +1,38 @@
+/*Geek just learned about Fibonacci numbers.
+
+The Fibonacci Sequence is the series of numbers: 0, 1, 1, 2, 3, 5, 8, 13, ...
+where the next number is found by adding up the two numbers before it.
+
+He defines a new series called Geeky numbers. Here the next number is the sum of the K preceding numbers.
+You are given an array of size K, GeekNum[ ], where the ith element of the array represents the ith Geeky number. Return its Nth term.
+
+Example 1:
+
+Input:
+N = 6, K = 1
+GeekNum[] = {4}
+Output: 
+4
+Explanation: 
+Terms are 4, 4, 4, 4, 4, 4
+*/
+
+long long solve(int n, int k, vector<long long>arr) {
+vector<long long int>dp(n,0);
+if(n<=k)
+{
+    return arr[n-1];
+}
+for(int i=0;i<k;i++)
+{
+    dp[i]=arr[i];
+}
+for(int i=k;i<n;i++)
+{
+    for(int j=i-1;j>=i-k;j--)
+    {
+        dp[i]+=dp[j];
+    }
+}
+return dp[n-1];
+    }
