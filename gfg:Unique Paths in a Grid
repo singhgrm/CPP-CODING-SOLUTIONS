@@ -1,0 +1,48 @@
+/*You are given a matrix grid of n x  m size consisting of values 0 and 1. A value of 1 means that you can enter that cell and 0 implies that entry to that cell
+is not allowed.
+
+You start at the upper-left corner of the grid (1, 1) and you have to reach the bottom-right corner (n, m) such that you can only move in the right or down
+direction from every cell.
+
+Your task is to calculate the total number of ways of reaching the target modulo (109+7).
+Note: The first (1, 1) and last cell (n, m) of the grid can also be 0
+n = 3, m = 3
+grid[][] = {{1, 1, 1};
+            {1, 0, 1};
+            {1, 1, 1}}
+Output:
+2
+*/
+static int mod=1000000007;
+static int dfs(int[][]grid,int n,int m,int[][] dp)
+{
+    if(n==0 && m==0 )
+    {
+        return grid[n][m]==0?0:1;
+    }
+if(n<0 || m<0)
+{
+    return 0;
+}
+if(grid[n][m]==0)
+{
+    return 0;
+}
+if(dp[n][m]!=-1)
+{
+    return dp[n][m];
+}
+return  dp[n][m]=(dfs(grid,n-1,m,dp)+dfs(grid,n,m-1,dp))%mod;
+}
+    static int uniquePaths(int n, int m, int[][] grid) {
+        int[][] dp=new int[n][m];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                dp[i][j]=-1;
+            }
+        }
+         int val= dfs(grid,n-1,m-1,dp);
+        return val;
+    }
